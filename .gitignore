@@ -1,0 +1,22 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+*.swp
+
+# Environment files
+.env
+.venv/
+.envrc
+
+# System files
+.DS_Store
+Thumbs.db
