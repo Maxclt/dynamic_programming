@@ -42,6 +42,9 @@ class CES(ABC):
         """
         return (c ** (1 - self.sigma)) / (1 - self.sigma)
 
+    def u_prime(self, c: float) -> float:
+        return c ** (-self.sigma)
+
     def f_output(self, H: float, L: float) -> float:
         """_summary_
 
@@ -70,6 +73,20 @@ class CES(ABC):
 
     def inv_state_transition(self, H_new: float, H_old: float) -> float:
         return 1 - H_new + (1 - self.delta) * H_old
+
+    def dist_euler_equation(self, L_new, H_new, H_old, L_old):
+        return np.abs(
+            self.u_prime(self.f_output(H_old, L_old)) * H_old**self.alpha
+            - self.beta
+            * self.u_prime(self.f_output(H_new, L_new))
+            * (
+                self.alpha * H_new ** (self.alpha - 1) * L_new
+                + (1 - self.delta) * H_new**self.alpha
+            )
+        )
+
+    def dist_motion(self, H_new, H_old, L_old):
+        return np.abs(H_new - (1 - self.delta) * H_old + 1 - L_old)
 
     @abstractmethod
     def solve_optgrowth(tol=1e-4, max_iter=500):
