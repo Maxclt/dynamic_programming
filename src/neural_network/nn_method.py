@@ -26,6 +26,9 @@ class CES(HyperParameters):
         self.save_hyperparameters(
             alpha=alpha, beta=beta, delta=delta, sigma=sigma, h_0=h_0
         )
+        self.steady_h = (beta * alpha) / (1 - beta * (1 - delta - alpha * delta))
+        self.steady_l = 1 - delta * self.steady_h
+        self.steady_c = self.steady_h**alpha * self.steady_l
 
     def u(self, c):
         return c ** (1 - self.sigma) / (1 - self.sigma)
