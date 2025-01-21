@@ -14,7 +14,7 @@ This project, **dynamic-programming**, is a Python-based implementation and expl
 This repository implements the problem and provides tools for studying different estimation techniques, including:
 
 - Bellman operators for dynamic programming
-- Epsilon-greedy methods for exploring policies
+- Greedy methods for exploring policies and estimating the optimal value function and policy
 - Neural network methods for function approximation
 
 The project includes structured notebooks, source code, and utilities for experimentation.
@@ -32,7 +32,7 @@ The project includes structured notebooks, source code, and utilities for experi
 
 1. **`src/dynamic_programming/`**:
    - `bellman_operator.py`: Implements the Bellman operator for solving dynamic programming problems.
-   - `epsilon_greedy.py`: Contains the epsilon-greedy algorithm for policy exploration.
+   - `epsilon_greedy.py`: Contains the greedy algorithm for estimating the optimal value function and policy.
 
 2. **`src/neural_network/`**:
    - `nn_method.py`: Implements neural network methods for approximating the value function.
