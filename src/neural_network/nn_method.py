@@ -107,7 +107,7 @@ class NN(nn.Module, HyperParameters):
     def forward(self, x):
         out = self.q(x)
 
-        first_coef = F.softplus(out[:, 0], beta=1.0)  # Softplus for h (human capital)
+        first_coef = F.softplus(out[:, 0])  # Softplus for h (human capital)
         second_coef = F.sigmoid(out[:, 1])  # Sigmoid for l (labor)
 
         # Combine the coefficients into a single output tensor

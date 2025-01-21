@@ -57,8 +57,7 @@ def compare_approx(
     )
 
     # Add labels and legend
-    ax.set_xlabel("X-axis")
-    ax.set_ylabel("Y-axis")
+    ax.set_xlabel("Human Capital")
     ax.legend(loc="lower right")
 
     # Show the plot

@@ -29,7 +29,12 @@ class CES(ABC):
         self.delta = delta
         self.sigma = sigma
 
-        self.results = {"Value": None, "Policy": None, "Output": None, "Control": None}
+        self.results = {
+            "Value": None,
+            "Policy": None,
+            "Output": None,
+            "Next State": None,
+        }
 
     def u(self, c: float) -> float:
         """Define the agent's CRRA utility function
@@ -109,7 +114,7 @@ class CES(ABC):
             label="approximate value function",
         )
 
-        if var in {"Policy", "Output", "State"}:
+        if var in {"Policy", "Output", "Next State"}:
             ax.plot(self.grid, self.grid, lw=2, alpha=0.6, label="45 degrees line")
 
         if var in {"Policy"}:

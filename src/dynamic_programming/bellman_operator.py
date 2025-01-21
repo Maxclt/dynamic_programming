@@ -118,7 +118,7 @@ class BellmanOperator(CES):
             self.results["Value"],
             self.results["Policy"],
             self.results["Output"],
-            self.results["State"],
+            self.results["Next State"],
         ) = self.bellman_operator(w, Tw, compute_policy=True)
 
 

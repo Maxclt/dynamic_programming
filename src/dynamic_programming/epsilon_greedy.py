@@ -57,14 +57,16 @@ class EpsilonGreedy(CES):
 
             if np.random.rand() > self.epsilon / len(self.grid):
                 l_new = minimize_scalar(objective, bounds=(0, 1), method="bounded").x
+                explore = False
             else:
                 l_new = np.random.rand()
+                explore = True
 
             Tpolicy[i] = l_new
 
             Tw[i] = -objective(l_new)
 
-        return Tw, Tpolicy
+        return Tw, Tpolicy, explore
 
     def solve_optgrowth_policy(self, w, pol, tol=1e-4, max_iter=500):
 
@@ -89,23 +91,26 @@ class EpsilonGreedy(CES):
         i = 0
         self.w_history = []
         self.pol_history = []
+        self.explore_history = []
 
         # == Create storage array for bellman_operator. Reduces  memory
         # allocation and speeds code up == #
         Tw = np.empty_like(self.init_w)
 
         # First iter
-        w, pol = self.improve_greedy_policy(w, Tw)
+        w, pol, explore = self.improve_greedy_policy(w, Tw)
 
         with tqdm(total=max_iter, desc="Greedy Solver", unit="iter") as pbar:
             while error > tol and i < max_iter:
                 w_approx = self.solve_optgrowth_policy(w, pol, tol=1e-4, max_iter=500)[
                     0
                 ]
-                w_new, pol_new = self.improve_greedy_policy(w_approx, Tw=None)
+                w_new, pol_new, explore = self.improve_greedy_policy(w_approx, Tw=None)
                 error = np.max(np.abs(pol_new - pol))
                 pol = pol_new
                 w = w_new
+                if explore:
+                    self.explore_history.append(i)
                 self.w_history.append(w_approx.copy())
                 self.pol_history.append(pol.copy())  # Append a copy of w to the list
 
